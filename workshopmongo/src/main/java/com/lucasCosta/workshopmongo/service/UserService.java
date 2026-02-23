@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,6 +28,14 @@ public class UserService {
     public User insert (User obj){
         return userRepository.insert(obj);
     }
+
+    public void delete(String id){
+        userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("User not found"));
+        userRepository.deleteById(id);
+    }
+
+
     public User fromDTO(UserDTO objDto){
         return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
