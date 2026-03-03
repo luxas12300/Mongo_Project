@@ -1,0 +1,29 @@
+package com.lucasCosta.workshopmongo.resource;
+
+import com.lucasCosta.workshopmongo.domain.Post;
+import com.lucasCosta.workshopmongo.domain.User;
+import com.lucasCosta.workshopmongo.dto.UserDTO;
+import com.lucasCosta.workshopmongo.service.PostService;
+import com.lucasCosta.workshopmongo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping(value="/posts")
+public class PostResource {
+
+    @Autowired
+    private PostService service;
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public ResponseEntity<Post> findbyId(@PathVariable String id){
+        Post post = service.findById(id);
+        return ResponseEntity.ok().body(post);
+    }
+}
